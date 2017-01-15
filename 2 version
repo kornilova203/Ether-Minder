@@ -1,0 +1,53 @@
+contract EtherMinder {
+    
+    enum ChallengeState {active, failed, achieved}
+    
+    struct Challenge {
+        address challengee;
+        address trustee;
+        uint bet;
+        string description;
+        ChallengeState state;
+    }
+    
+    event ChallengeAdded(uint id);
+    event ChallengeAchieved(uint id);
+    event ChallengeFailed(uint id);
+    
+    Challenge[] public challenges;
+    
+    /* Constructor */
+    function EtherMinder() {
+    }
+    
+    function challenge(string _description, address _trustee) payable {
+        challenges.push(Challenge({
+            challengee: msg.sender,
+            bet: msg.value,
+            description: _description,
+            trustee: _trustee,
+            state: ChallengeState.active
+        }));
+        ChallengeAdded(challenges.length - 1);
+    }
+    
+    function achieveChallenge(uint challengeId) {
+        Challenge c = challenges[challengeId];
+        if (msg.sender == c.trustee) {
+            if (!c.challengee.send(c.bet)) //send money back
+                throw;
+            c.state = ChallengeState.achieved;
+            ChallengeAchieved(challengeId); //event
+        }
+    }
+    
+    function failChallenge(uint challengeId) {
+        Challenge c = challenges[challengeId];
+        if (msg.sender == c.trustee) {
+            address empty = 0;
+            if (!empty.send(c.bet)) //destroy money
+                throw;
+            c.state = ChallengeState.failed;
+            ChallengeFailed(challengeId); //event
+        }
+    }     
