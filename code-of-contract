@@ -1,6 +1,6 @@
-contract EtherMinder {
+contract EtherMinder { //каждый контракт представляет из себя класс
     
-    enum ChallengeState {active, failed, achieved}
+    enum ChallengeState {active, failed, achieved} //перечисление возможных значений для статуса задачи (активная, проваленная, выполненная)
     
     struct Challenge {
         address challengee;
