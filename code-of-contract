@@ -59,3 +59,4 @@ contract EtherMinder { //каждый контракт представляет 
             ChallengeFailed(challengeId); //вызов события, которое выведет id проваленного задания
         }
     }     
+ }
