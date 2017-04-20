@@ -1,62 +1,65 @@
-contract EtherMinder { //каждый контракт представляет из себя класс
+contract EtherMinder { // each contract is a class
     
-    enum ChallengeState {active, failed, achieved} //перечисление возможных значений для статуса задачи (активная, проваленная, выполненная)
+    enum ChallengeState {active, failed, achieved} // list of all possible states of challenge
     
-    struct Challenge { //структура задания
-        address challengee; //адрес кошелька человека, выполняющего задание
-        address trustee; //адрес кошелько человека, который может отметить задание выполненным или проваленным
-        uint bet;  //размер ставки
-        string description; //описание задания
-        ChallengeState state; //статус (активная, проваленная, выполненная)
+    struct Challenge {
+        address challengee; // address of wallet of challengee
+        address trustee; // address of wallet of person who can mark challenge as completed/failed
+        uint bet;  // bet
+        string description; // description of challenge
+        ChallengeState state; // state of challenge (active, failed, achieved)
     }
     
-    //события добавления, достижения и провала задания
-    //события контракта можно просмотреть через интерфейс кошелька, не вызывая никаких функций
+    // events of adding, achieving and failing a challenge
+    // events can be seen on page of contract without executing any functions
     event ChallengeAdded(uint id); 
     event ChallengeAchieved(uint id); 
     event ChallengeFailed(uint id);
     
-    Challenge[] public challenges; //массив заданий
+    Challenge[] public challenges; // array of challenges
     
-    /* Constructor */
-    function EtherMinder() { //конструктор
+    function EtherMinder() { // constructor
     }
     
-    //функция довавления задания
-    //Получает на вход описание задания и адрес кошелька довереного лица
+    // add challenge
+    // Input parameters:
+    //      description of challenge
+    //      address of wallet of trusted person (who will mark challenge as completed/failed)
     function challenge(string _description, address _trustee) payable { 
-        challenges.push(Challenge({ //добавление задания в массив задач
+        challenges.push(Challenge({ // add new challenge to array of challenges
             challengee: msg.sender,
             bet: msg.value,
             description: _description,
             trustee: _trustee,
             state: ChallengeState.active
         }));
-        ChallengeAdded(challenges.length - 1); //вызов события, которое выведет id добавленного задания
+        ChallengeAdded(challenges.length - 1); // call event ChallengeAdded
     }
     
-    //функция отметить задание выполненным
-    //получает на вход id задания
+    // mark challenge as achieved
+    // input parameters:
+    //      id of challenge
     function achieveChallenge(uint challengeId) { 
         Challenge c = challenges[challengeId]; 
-        if (msg.sender == c.trustee) { //если человек, который вызвал ф-цию, является доверенным лицом
-            if (!c.challengee.send(c.bet)) //деньги отсылаются назад
+        if (msg.sender == c.trustee) { // if person is trusted
+            if (!c.challengee.send(c.bet)) // money is sent back
                 throw;
-            c.state = ChallengeState.achieved; //изменяется статус задания
-            ChallengeAchieved(challengeId); //вызов события, которое выведет id выполненного задания
+            c.state = ChallengeState.achieved; // change state to 'achieved'
+            ChallengeAchieved(challengeId); // call event ChallengeAchieved
         }
     }
     
-    //функция отметить задание проваленным
-    //получает на вход id задания
+    // mark challenge as failed
+    // input parameters:
+    //      id of challenge
     function failChallenge(uint challengeId) {
         Challenge c = challenges[challengeId];
-        if (msg.sender == c.trustee) { //если человек, который вызвал ф-цию, является доверенным лицом
+        if (msg.sender == c.trustee) { // if person is trusted
             address empty = 0;
-            if (!empty.send(c.bet)) //деньги уничтожаются
+            if (!empty.send(c.bet)) // money is destroyed
                 throw;
-            c.state = ChallengeState.failed;  //изменяется статус задания
-            ChallengeFailed(challengeId); //вызов события, которое выведет id проваленного задания
+            c.state = ChallengeState.failed;  // change state to 'achieved'
+            ChallengeFailed(challengeId); // call event ChallengeFailed
         }
     }     
  }
