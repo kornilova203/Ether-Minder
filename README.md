@@ -1,4 +1,5 @@
 # Ether-Minder
+Co-author [Valentin Nemcev](https://github.com/valentin-nemcev)
 ## About Ethereum
 Ethereum is an open-source, public, blockchain-based distributed computing platform. It allows to not only use cryptocurrency but also write applications to blockchain (it is called Smart Contracts), which can be executed.
 
