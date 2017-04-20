@@ -18,6 +18,9 @@ Adding challenge to Ether-Minder:
 
 ![adding challenge to Ether-Minder](https://pp.userapi.com/c639126/v639126518/1947/1xCo8LiK7Rw.jpg)
 
+## Code of contract
+Code of contract with comments in English can be found [here](https://github.com/kornilova-l/Ether-Minder/blob/master/code-of-contract).
+
 ## О эфириуме
 Ethereum - это платформа для создания децентрализованных онлайн-сервисов на базе блокчейна. Она позволяет не только проводить операции с криптовалютой, но и записывать в blockchain приложения (умные контракты), которые затем можно выполнить.
 
