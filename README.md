@@ -4,10 +4,19 @@ Ethereum is an open-source, public, blockchain-based distributed computing platf
 
 ## What does Ether-Minder do?
 The contract implements a simpliﬁed idea of beeminder.com (motivation service, which charges a fee in case if he/she do not accomplish his/her challenge).
+
+Page of contract in public test network:
+
+![adding challenge to Ether-Minder](https://pp.userapi.com/c639126/v639126518/1950/PvAHHRvyCd8.jpg)
+
 Ether-Minder has following features:
 * Add challenge. Person gives description of challenge, sends to contract as much money as much he wants to bet. Also he should specify person who will be responsible for marking challenge as complited or failed.
 * Mark challenge as complited. In this case bet is sended back to person.
 * Mark challenge as failed. In this case bet is literaly destroied (money is sended to 0 address)
+
+Adding challenge to Ether-Minder:
+
+![adding challenge to Ether-Minder](https://pp.userapi.com/c639126/v639126518/1947/1xCo8LiK7Rw.jpg)
 
 ## О эфириуме
 Ethereum - это платформа для создания децентрализованных онлайн-сервисов на базе блокчейна. Она позволяет не только проводить операции с криптовалютой, но и записывать в blockchain приложения (умные контракты), которые затем можно выполнить.
