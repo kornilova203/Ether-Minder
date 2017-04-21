@@ -12,7 +12,7 @@ Page of contract in public test network:
 
 Ether-Minder has following features:
 * Add challenge. A person gives a description of the challenge then sends to contract as much money as much he wants to bet. Also, he should specify the person who will be responsible for marking challenge as completed or failed.
-* Mark challenge as completed. In this case, bet is sent back to the person.
+* Mark challenge as completed. In this case, the bet is sent back to the person.
 * Mark challenge as failed. In this case, the bet is literally destroyed (money is sent to 0 address)
 
 Adding challenge to Ether-Minder:
